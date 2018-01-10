@@ -35,13 +35,14 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     
     if username == "hejingjing" && password == "951237" {  
         result.Code = 100  
-        result.Message = "登录成功"  
+        result.Message = "登录成功" 
+        fmt.Println("登陆成功，用户名为",username)   
     } else {  
         result.Code = 101  
-        result.Message = "用户名或密码不正确"  
-    }  
-    //向客户端返回JSON数据  
+        result.Message = "用户名或密码不正确" 
+        fmt.Println("用户",username,"尝试登陆，并登录失败") 
+    }
     bytes, _ := json.Marshal(result)  
-    fmt.Fprint(w, string(bytes))
-    fmt.Println("登陆成功，用户名为",username)  
+    fmt.Fprint(w, string(bytes))  
+    //向客户端返回JSON数据    
 }
