@@ -8,6 +8,7 @@ import (
     "inet_server/common_unit"
     )
 
+var user_accounts = common_unit.Get_user_list()
 
 func Login_interface(w http.ResponseWriter, req *http.Request) {  
     fmt.Println("a user is login")  
@@ -33,7 +34,7 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     username := username_content[0]  
     password := password_content[0]  
     
-    if username == "hejingjing" && password == "951237" {  
+    if user_accounts[username] == password{  
         result.Code = 100  
         result.Message = "登录成功" 
         fmt.Println("登陆成功，用户名为",username)   
