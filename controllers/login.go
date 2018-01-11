@@ -37,7 +37,7 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     if user_accounts[username] == password{  
         result.Code = 100  
         result.Message = "登录成功" 
-        fmt.Println("登陆成功，用户名为",username)   
+        fmt.Println("登陆成功，用户名为",username,"密码MD5为",common_unit.Cal_md5(password))   
     } else {  
         result.Code = 101  
         result.Message = "用户名或密码不正确" 

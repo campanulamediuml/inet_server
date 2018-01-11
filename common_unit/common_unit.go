@@ -4,8 +4,11 @@ import (
     "fmt"
     "strings"
     "io/ioutil"
-    // "strconv"
+    "crypto/md5"
+    "encoding/hex"
     )
+
+var debug int = 1
 
 type BaseJsonBean struct {  
     Code    int         `json:"code"`  
@@ -16,6 +19,15 @@ type BaseJsonBean struct {
 func NewBaseJsonBean() *BaseJsonBean {  
     return &BaseJsonBean{}  
 } 
+
+func Cal_md5(string_need_to_cal_md5 string)(md5_string string){
+    md5Ctx := md5.New()
+    md5Ctx.Write([]byte(string_need_to_cal_md5))
+    cipherStr := md5Ctx.Sum(nil)
+    md5_string = hex.EncodeToString(cipherStr)
+    return
+    // 计算md5
+}
 
 func Get_user_list()(user_list map[string]string){
     user_list = make(map[string]string)
@@ -32,7 +44,11 @@ func Get_user_list()(user_list map[string]string){
         account_info := strings.Split(line,"\t") 
         user_list[account_info[0]] = account_info[1]
     }
-    fmt.Println(user_list)
     // 制造一个带索引的数组结构，其中每一个key是用户名，value是密码
+    if debug == 1{
+        for username,password := range user_list{
+            fmt.Println(username,password)
+        } 
+    }
     return
 }
