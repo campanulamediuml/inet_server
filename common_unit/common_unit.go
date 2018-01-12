@@ -6,6 +6,7 @@ import (
     "io/ioutil"
     "crypto/md5"
     "encoding/hex"
+    "os"
     )
 
 var debug int = 1
@@ -45,10 +46,34 @@ func Get_user_list()(user_list map[string]string){
         user_list[account_info[0]] = account_info[1]
     }
     // 制造一个带索引的数组结构，其中每一个key是用户名，value是密码
-    if debug == 1{
-        for username,password := range user_list{
-            fmt.Println(username,password)
-        } 
-    }
+    // if debug == 1{
+    //     for username,password := range user_list{
+    //         fmt.Println(username,password)
+    //     } 
+    // }
     return
 }
+
+func Sign_to_file(content string) error {
+   // 以只写的模式，打开文件
+    f, err := os.OpenFile("./common_unit/user_account.txt", os.O_WRONLY, 0644)
+    if err != nil {
+        fmt.Println("cacheFileList.yml file create failed. err: " + err.Error())
+    } else {
+        // 查找文件末尾的偏移量
+        n, _ := f.Seek(0, os.SEEK_END)
+        // 从末尾的偏移量开始写入内容
+        _, err = f.WriteAt([]byte(content), n)
+    }   
+    defer f.Close()   
+    return err
+}
+
+
+
+
+
+
+
+
+

@@ -8,10 +8,9 @@ import (
     "inet_server/common_unit"
     )
 
-var user_accounts = common_unit.Get_user_list()
-
-func Login_interface(w http.ResponseWriter, req *http.Request) {  
-    fmt.Println("a user is login")  
+func Login_interface(w http.ResponseWriter, req *http.Request) {
+    var user_accounts = common_unit.Get_user_list()  
+    fmt.Println("a user login")  
     //模拟延时  
     // time.Sleep(time.Second * 2)  
     //获取客户端通过POST方式传递的参数  
