@@ -33,7 +33,7 @@ func Cal_md5(string_need_to_cal_md5 string)(md5_string string){
 func Get_user_list()(user_list map[string]string){
     user_list = make(map[string]string)
     // 初始化用户名密码数组
-    data, err := ioutil.ReadFile("./common_unit/user_account.txt")
+    data, err := ioutil.ReadFile("./models/user_account.txt")
     if err != nil{
         fmt.Println("get user accounts fail")
     } 
@@ -56,7 +56,7 @@ func Get_user_list()(user_list map[string]string){
 
 func Sign_to_file(content string) error {
    // 以只写的模式，打开文件
-    f, err := os.OpenFile("./common_unit/user_account.txt", os.O_WRONLY, 0644)
+    f, err := os.OpenFile("./models/user_account.txt", os.O_WRONLY, 0644)
     if err != nil {
         fmt.Println("cacheFileList.yml file create failed. err: " + err.Error())
     } else {

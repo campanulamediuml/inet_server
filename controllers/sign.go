@@ -49,7 +49,7 @@ func Sign_interface(w http.ResponseWriter, req *http.Request) {
         fmt.Println("注册失败，用户名",username,"已存在") 
         // 如果用户名已经存在则返回错误 
     }else{
-        var user_token string = "\n"+username+"\t"+password
+        var user_token string = "\n"+username+"\t"+string(common_unit.Cal_md5(password))
         err := common_unit.Sign_to_file(user_token)
         if err != nil{
             fmt.Println("服务器内部错误")

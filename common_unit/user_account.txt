@@ -1,5 +1,0 @@
-hejingjing	123456
-testaccount	123456
-signtest	123456
-signtest1	123456
-signtest2	123456
