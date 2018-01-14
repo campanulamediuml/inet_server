@@ -7,6 +7,7 @@ import (
     "crypto/md5"
     "encoding/hex"
     "os"
+    "time"
     )
 
 var debug int = 1
@@ -35,7 +36,9 @@ func Get_user_list()(user_list map[string]string){
     // 初始化用户名密码数组
     data, err := ioutil.ReadFile("./models/user_account.txt")
     if err != nil{
-        fmt.Println("get user accounts fail")
+        logging := "get user accounts fail"
+        Write_log(logging)
+        fmt.Println(logging)
     } 
     var user_account_string string = string(data)
     // 读取保存了用户名的txt文件  
@@ -55,7 +58,7 @@ func Get_user_list()(user_list map[string]string){
 }
 
 func Sign_to_file(content string) error {
-   // 以只写的模式，打开文件
+    // 以只写的模式，打开文件
     f, err := os.OpenFile("./models/user_account.txt", os.O_WRONLY, 0644)
     if err != nil {
         fmt.Println("cacheFileList.yml file create failed. err: " + err.Error())
@@ -64,6 +67,28 @@ func Sign_to_file(content string) error {
         n, _ := f.Seek(0, os.SEEK_END)
         // 从末尾的偏移量开始写入内容
         _, err = f.WriteAt([]byte(content), n)
+    }   
+    defer f.Close()   
+    return err
+}
+
+func Get_time()(currentTimeData string){
+    currentTimeData=time.Now().Format("2006-01-02 15:04:05") 
+    return
+
+}
+
+func Write_log(content string) error {
+    // 以只写的模式，打开文件
+    currentTime:=Get_time()
+    f, err := os.OpenFile("./logs.txt", os.O_WRONLY, 0644)
+    if err != nil {
+        fmt.Println("cacheFileList.yml file create failed. err: " + err.Error())
+    } else {
+        // 查找文件末尾的偏移量
+        n, _ := f.Seek(0, os.SEEK_END)
+        // 从末尾的偏移量开始写入内容
+        _, err = f.WriteAt([]byte(currentTime+content+"\n"), n)
     }   
     defer f.Close()   
     return err

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>这是个很难看的主页……</title>
+</head>
+    <body>
+        <h1 style="text-align: center;">👉 这是主页</h1>
+        <br/>
+        <h2 style="text-align: center;">👉 这是主页上的内容</h2>
+        <br/>
+        <h3 style="text-align: center;">好烦啊……我实在是觉得html页面好无聊好繁琐啊……</h3>
+        <br/>
+        <div style="text-align: center;">
+            <script type="text/javascript">
+                var isShow=true;
+                function change()
+                {
+                    var v=document.getElementById("password");
+                    if (isShow) 
+                    {
+                        v.type="text";
+                        isShow=false;
+                    }
+                    else
+                    {
+                        v.type="password";
+                        isShow=true;
+                    }
+                };
+                // 复选框拿来实现显示密码与否
+                function login()
+                {
+                    var form1=document.getElementById("form_login_and_sign");
+                    form1.action="/go/login"; 
+                    form1.method = "post";               //设置提交路径，登录
+                    form1.submit();                            
+                };
+                function sign()
+                {
+                    var form1=document.getElementById("form_login_and_sign");
+                    form1.action="/go/sign";  
+                    form1.method = "post";                //设置提交路径，注册
+                    form1.submit();                            
+                };
+            </script>
+            <p1>
+                <form id="explain" style="width: 70%;margin:0 auto">
+                迪迪那个老狗本来还说不需要写页面了，直接放俩输入框让你们自己感受一下其中的意思就够了，不过我觉得这样就太太太太没诚意了……所以我还是写一下主页吧……吧……吧？？
+                <br/>
+                <br/>
+                #很好，我觉得这算是新时代的灵魂网页设计风格……
+                </form>
+            </p1>
+            <br/>
+            <form id="form_login_and_sign" method="get">
+                <!-- 此处用来输入账号密码 -->
+                账号: 
+                <input type="text" name="username"/>
+                <br/>
+                密码: 
+                <input id="password" type="password" name="password"/>
+                <br/>
+                <label>
+                    <input onclick="change()" name="print_password" type="checkbox" value=""/>
+                    显示密码
+                </label> 
+                <br/>
+                <input type="submit" value="登录" onclick="login()"/>
+                <!-- 提交登录 -->
+                <input type="submit" value="注册" onclick="sign()"/>
+                <!-- 提交注册 -->
+            </form>
+        </div>
+    </body>
+    <br/>
+    <br/>
+    <div style="text-align: center;">
+        <br/>
+        <br/>
+        <comment style="color:#A4A4A4;"> 
+            PS1:这是一个新挖的后端坑，因为没有人帮我设计界面，而且其实是用业余时间做的所以不要指望多好看了谢谢
+            <br/>
+            PS2:要好看出门左转找个会设计的来
+            <br/>
+        </comment>
+    </div>
+</html>

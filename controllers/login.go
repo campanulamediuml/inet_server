@@ -6,6 +6,7 @@ import (
     // "time"
     "encoding/json"
     "inet_server/common_unit"
+    "io/ioutil"
     )
 
 func Login_interface(w http.ResponseWriter, req *http.Request) {
@@ -26,7 +27,9 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
         result_bytes, _ := json.Marshal(result) 
         // 格式化返回数据 
         fmt.Fprint(w, string(result_bytes))
-        fmt.Println("登录信息为空，登录失败")  
+        logging := "登录信息为空，登录失败"
+        common_unit.Write_log(logging)
+        fmt.Println(logging)  
         return  
     }  
  
@@ -36,11 +39,25 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     if user_accounts[username] == string(common_unit.Cal_md5(password)){  
         result.Code = 100  
         result.Message = "登录成功" 
-        fmt.Println("登陆成功，用户名为",username,"密码MD5为",common_unit.Cal_md5(password))   
+        logging := "登陆成功，用户名为"+username+"密码MD5为"+common_unit.Cal_md5(password)
+        common_unit.Write_log(logging)
+        fmt.Println(logging) 
+        data, err := ioutil.ReadFile("./views/login_success.html")
+        if err != nil{
+            logging = "找不到主页"
+            fmt.Println(logging)
+            common_unit.Write_log(logging)
+        } else {
+            var content string = string(data)
+            fmt.Fprint(w, content) 
+        }
+ 
     } else {  
         result.Code = 101  
-        result.Message = "用户名或密码不正确" 
-        fmt.Println("用户",username,"尝试登陆，并登录失败") 
+        result.Message = "用户名或密码不正确"  
+        logging := "用户"+username+"尝试登陆，并登录失败"
+        common_unit.Write_log(logging)
+        fmt.Println(logging)   
     }
     bytes, _ := json.Marshal(result)  
     fmt.Fprint(w, string(bytes))  
