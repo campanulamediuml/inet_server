@@ -75,7 +75,6 @@ func Sign_to_file(content string) error {
 func Get_time()(currentTimeData string){
     currentTimeData=time.Now().Format("2006-01-02 15:04:05") 
     return
-
 }
 
 func Write_log(content string) error {
