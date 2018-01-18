@@ -19,8 +19,7 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     result := common_unit.NewBaseJsonBean() 
     username_content, _ := req.Form["username"]  
     password_content, _ := req.Form["password"] 
-    fmt.Println(username_content,password_content)
-
+    // fmt.Println(username_content,password_content)
 
     if username_content[0] == "" || password_content[0] == "" { 
         result.Code = -1
@@ -41,12 +40,12 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
     }  
  
     username := username_content[0]  
-    password := password_content[0]  
+    password := common_unit.Cal_md5(password_content[0])
     
-    if user_accounts[username] == string(common_unit.Cal_md5(password)){  
+    if user_accounts[username] == password{  
         result.Code = 100  
         result.Message = "登录成功" 
-        logging := "登陆成功，用户名为"+username+"密码MD5为"+common_unit.Cal_md5(password)
+        logging := "登陆成功，用户名为"+username+"密码MD5为"+password
         common_unit.Write_log(logging)
         fmt.Println(logging) 
         data, err := ioutil.ReadFile("./views/login_success.html")
@@ -55,6 +54,7 @@ func Login_interface(w http.ResponseWriter, req *http.Request) {
             fmt.Println(logging)
             common_unit.Write_log(logging)
         } else {
+            // var content string = common_unit.Add_token(string(data),username,password)
             var content string = string(data)
             fmt.Fprint(w, content) 
         }
