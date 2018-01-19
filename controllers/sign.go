@@ -29,6 +29,7 @@ func Sign_interface(w http.ResponseWriter, req *http.Request) {
         fmt.Println("注册数据为空，注册失败")  
         return  
     }  
+    // 没有，瞎写的
  
     username := username_content[0]  
     password := password_content[0] 
