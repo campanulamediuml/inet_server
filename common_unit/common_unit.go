@@ -93,6 +93,10 @@ func Write_log(content string) error {
     return err
 }
 
+func Get_token(content string) error{
+    return err
+}
+
 // func Add_token(content string,username string,password string)(result_content string){
 //     var content_head string= `
 //     content_body := `
